@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10243a">
+<title>TeamSpace | Communication & Medical Ethics</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+:root{--navy:#10243a;--navy2:#183653;--teal:#13a89e;--pale:#eaf6f5;--ink:#1c2b39;--muted:#718096;--line:#e5ebf0;--bg:#f4f7fa;--white:#fff;--danger:#b42318}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Cairo',Tahoma,Arial,sans-serif}
+.topbar{min-height:76px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px max(5%,calc((100% - 1100px)/2));box-shadow:0 4px 18px #10243a22}
+.brand{display:flex;align-items:center;gap:12px}.brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:var(--teal);font-weight:800}.brand strong,.brand small{display:block}.brand small{font-size:11px;color:#c5d4df}.badge{font-size:12px;border:1px solid #ffffff55;border-radius:20px;padding:5px 12px}
+.container{max-width:1100px;margin:34px auto;padding:0 18px;min-height:70vh}.login-card,.panel,.card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:0 8px 28px #17324a0a}
+.login-card{max-width:470px;margin:55px auto}.eyebrow{color:var(--teal);font-weight:800;font-size:13px}.login-card h1,.welcome-row h1{margin:5px 0 8px;color:var(--navy)}h1{font-size:27px}h2{font-size:21px;margin:0 0 18px;color:var(--navy)}h3{margin:0 0 12px}.muted{color:var(--muted);font-size:14px}
+.login-card form{display:grid;gap:10px;margin-top:24px}label{font-size:13px;font-weight:700}input,textarea{font:inherit;border:1px solid #d9e2e9;border-radius:10px;padding:11px 13px;width:100%;outline:none;background:#fff}input:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px #13a89e18}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:10px 16px;font-weight:700}.primary{background:var(--teal);color:#fff}.primary:hover{background:#0d9189}.primary:disabled{opacity:.6;cursor:wait}.ghost{background:#edf2f6;color:var(--navy)}.small{font-size:13px;padding:8px 13px}.hidden{display:none!important}
+.welcome-row,.section-head{display:flex;justify-content:space-between;align-items:center;gap:14px}.welcome-row{margin-bottom:22px}.welcome-row h1{font-size:25px}.tabs{display:flex;gap:7px;overflow-x:auto;padding:5px 0 14px;margin-bottom:5px}.tab{white-space:nowrap;background:#e9eff4;color:#435568}.tab.active{background:var(--navy);color:#fff}
+.panel{margin-bottom:24px;min-height:250px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.stats article{padding:18px;background:var(--pale);border-radius:14px;text-align:center}.stats b{display:block;font-size:26px;color:var(--navy)}.stats span{font-size:13px;color:var(--muted)}.card{box-shadow:none;margin-top:15px}
+.inline-form{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.inline-form input{flex:1;min-width:140px}.stack-form{display:grid;gap:10px;margin:14px 0}.list{display:grid;gap:10px;margin-top:16px}.item{border:1px solid var(--line);border-radius:13px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:12px}.item h3{font-size:15px;margin:0 0 4px}.item p{font-size:12px;color:var(--muted);margin:0}.item-actions{display:flex;align-items:center;gap:7px}.item-actions button{font-size:12px;padding:7px 10px}.empty{color:var(--muted);font-size:14px;padding:18px;text-align:center}.error{color:var(--danger);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+.vote-option{display:flex;justify-content:space-between;gap:8px;padding:9px;border-radius:9px;background:#f4f8fa;margin-top:7px}.vote-option button{padding:5px 10px;font-size:12px}.chat-messages{height:380px;overflow-y:auto;border:1px solid var(--line);border-radius:13px;padding:12px;background:#f8fafc}.message{max-width:85%;background:#fff;border:1px solid var(--line);border-radius:13px;padding:9px 12px;margin:8px 0}.message.mine{margin-right:auto;background:#e8f7f5;border-color:#c9eeea}.message strong{font-size:12px;color:var(--navy)}.message p{margin:4px 0;white-space:pre-wrap;overflow-wrap:anywhere}.message time{font-size:10px;color:var(--muted)}.chat-form{display:flex;gap:8px;margin-top:10px}.chat-form input{flex:1}
+footer{text-align:center;color:#8a98a6;font-size:12px;padding:20px}
+@media(max-width:650px){.container{margin:20px auto}.login-card,.panel{padding:18px}.stats{grid-template-columns:repeat(2,1fr)}.welcome-row{align-items:flex-start}.welcome-row h1{font-size:21px}.topbar{padding:12px 16px}.item{align-items:flex-start}.item-actions{flex-wrap:wrap}.chat-messages{height:330px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand"><span class="brand-mark">TS</span><div><strong>TeamSpace</strong><small>Communication &amp; Medical Ethics</small></div></div><span id="connectionBadge" class="badge">جارٍ تجهيز الاتصال...</span></header>
+<main class="container">
+<section id="loginView" class="login-card">
+<div class="eyebrow">مساحة عمل جماعية</div><h1>أهلًا بيكم في TeamSpace</h1><p class="muted">مكان واحد لتنظيم مهام الجروب والتصويت ومشاركة المصادر والتواصل.</p>
+<form id="joinForm"><label for="memberName">اسمك</label><input id="memberName" maxlength="40" placeholder="اكتب اسمك" required><label for="joinCode">كود الانضمام</label><input id="joinCode" maxlength="40" placeholder="أدخل كود الجروب" required><button id="joinButton" class="primary" type="submit">دخول مساحة الجروب</button><p id="loginError" class="error" role="alert"></p></form>
+</section>
+<section id="workspace" class="hidden">
+<div class="welcome-row"><div><div class="eyebrow">مساحة الجروب</div><h1>أهلًا، <span id="welcomeName"></span></h1><p class="muted">نظّموا شغلكم وخلّوا كل حاجة واضحة للجميع.</p></div><button id="signOutBtn" class="ghost">تسجيل الخروج</button></div>
+<nav class="tabs" aria-label="أقسام الموقع"><button class="tab active" data-view="overview">الرئيسية</button><button class="tab" data-view="tasks">المهام</button><button class="tab" data-view="votes">التصويت</button><button class="tab" data-view="members">الأعضاء</button><button class="tab" data-view="meetings">الاجتماعات</button><button class="tab" data-view="resources">المصادر</button><button class="tab" data-view="chat">الشات</button></nav>
+<section id="overviewView" class="panel"><h2>نظرة عامة</h2><div class="stats"><article><b id="taskCount">0</b><span>مهمة</span></article><article><b id="voteCount">0</b><span>تصويت مفتوح</span></article><article><b id="memberCount">0</b><span>عضو</span></article><article><b id="resourceCount">0</b><span>مصدر</span></article></div><div class="card"><h3>آخر التحديثات</h3><div id="recentActivity" class="empty">لسه مفيش تحديثات.</div></div></section>
+<section id="tasksView" class="panel hidden"><div class="section-head"><h2>المهام</h2><button class="primary small" id="addTaskBtn">+ إضافة مهمة</button></div><form id="taskForm" class="inline-form hidden"><input id="taskTitle" placeholder="عنوان المهمة" required maxlength="100"><input id="taskAssignee" placeholder="المسؤول (اختياري)" maxlength="50"><input id="taskDue" type="date"><button class="primary small">حفظ</button><button type="button" class="ghost small" data-cancel="taskForm">إلغاء</button></form><div id="tasksList" class="list empty">لا توجد مهام بعد.</div></section>
+<section id="votesView" class="panel hidden"><div class="section-head"><h2>التصويت</h2><button class="primary small" id="addVoteBtn">+ إنشاء تصويت</button></div><form id="voteForm" class="stack-form hidden"><input id="voteQuestion" placeholder="موضوع التصويت" required maxlength="180"><textarea id="voteOptions" placeholder="اكتب كل اختيار في سطر منفصل" rows="3" required></textarea><button class="primary small">نشر التصويت</button><button type="button" class="ghost small" data-cancel="voteForm">إلغاء</button></form><div id="votesList" class="list empty">لا توجد تصويتات بعد.</div></section>
+<section id="membersView" class="panel hidden"><h2>أعضاء الجروب</h2><div id="membersList" class="list empty">جارٍ تحميل الأعضاء...</div></section>
+<section id="meetingsView" class="panel hidden"><div class="section-head"><h2>الاجتماعات</h2><button class="primary small" id="addMeetingBtn">+ إضافة اجتماع</button></div><form id="meetingForm" class="inline-form hidden"><input id="meetingTitle" placeholder="عنوان الاجتماع" required maxlength="100"><input id="meetingDate" type="datetime-local" required><input id="meetingPlace" placeholder="المكان أو رابط الاجتماع" maxlength="160"><button class="primary small">حفظ</button><button type="button" class="ghost small" data-cancel="meetingForm">إلغاء</button></form><div id="meetingsList" class="list empty">لا توجد اجتماعات بعد.</div></section>
+<section id="resourcesView" class="panel hidden"><div class="section-head"><h2>المصادر</h2><button class="primary small" id="addResourceBtn">+ إضافة مصدر</button></div><form id="resourceForm" class="inline-form hidden"><input id="resourceTitle" placeholder="اسم المصدر" required maxlength="100"><input id="resourceUrl" type="url" placeholder="رابط المصدر" required><button class="primary small">حفظ</button><button type="button" class="ghost small" data-cancel="resourceForm">إلغاء</button></form><div id="resourcesList" class="list empty">لا توجد مصادر بعد.</div></section>
+<section id="chatView" class="panel hidden"><h2>شات الجروب</h2><div id="chatMessages" class="chat-messages"><p class="empty">ابدأوا المحادثة.</p></div><form id="chatForm" class="chat-form"><input id="chatInput" maxlength="1000" placeholder="اكتب رسالة للجروب..." required><button class="primary">إرسال</button></form></section>
+<p id="appError" class="error" role="alert"></p>
+</section>
+</main>
+<footer>TeamSpace · Communication &amp; Medical Ethics</footer>
+
+<script type="module">
+const $ = id => document.getElementById(id);
+const setLoginError = msg => { $('loginError').textContent = msg || ''; };
+const setAppError = msg => { $('appError').textContent = msg || ''; };
+$('joinForm').addEventListener('submit', e => e.preventDefault());
+
+(async function boot(){
+  try {
+    const [appSdk, authSdk, dbSdk] = await Promise.all([
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js'),
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js'),
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js')
+    ]);
+    const firebaseConfig = {
+      apiKey: "AIzaSyDNqt839UZpoZ0nYiddEUcBRNiO2e_i_C",
+      authDomain: "comunication-group.firebaseapp.com",
+      projectId: "comunication-group",
+      storageBucket: "comunication-group.firebasestorage.app",
+      messagingSenderId: "827583726143",
+      appId: "1:827583726143:web:c4cd085379be0fc5432e8a",
+      measurementId: "G-CFJ71HNCB6"
+    };
+    const app = appSdk.initializeApp(firebaseConfig);
+    const auth = authSdk.getAuth(app);
+    const db = dbSdk.getFirestore(app);
+    const GROUP = 'communication-medical-ethics';
+    const col = name => dbSdk.collection(db,'groups',GROUP,name);
+    const doc = (...parts) => dbSdk.doc(db,...parts);
+    const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const dateText = v => { if(!v)return ''; const d=v.toDate?v.toDate():new Date(v); return isNaN(d)?'':d.toLocaleString('ar-EG',{dateStyle:'medium',timeStyle:'short'}); };
+    let currentUser=null, memberName='', unsubscribers=[];
+    let authReadyResolve;
+    const authReady = new Promise(resolve => authReadyResolve=resolve);
+    const groupPath = ['groups',GROUP];
+    function clearSubs(){unsubscribers.forEach(fn=>fn());unsubscribers=[];}
+    function activate(view){
+      document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+      ['overview','tasks','votes','members','meetings','resources','chat'].forEach(v=>$(v+'View').classList.toggle('hidden',v!==view));
+    }
+    document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>activate(b.dataset.view)));
+    document.querySelectorAll('[data-cancel]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.cancel).classList.add('hidden')));
+    [['Task','taskForm'],['Vote','voteForm'],['Meeting','meetingForm'],['Resource','resourceForm']].forEach(([n,id])=>$('add'+n+'Btn').addEventListener('click',()=>$(id).classList.toggle('hidden')));
+
+    async function enter(name,code){
+      if(!currentUser) throw new Error('خدمة تسجيل الدخول لم تجهز بعد. حدّث الصفحة وحاول مرة أخرى.');
+      const uid=currentUser.uid, memberRef=doc(...groupPath,'members',uid);
+      const existing=await dbSdk.getDoc(memberRef);
+      if(existing.exists()){memberName=existing.data().name||name;return;}
+      const codeRef=doc(...groupPath,'joinCodes',code);
+      const codeSnap=await dbSdk.getDoc(codeRef);
+      if(!codeSnap.exists() || codeSnap.data().active!==true) throw new Error('كود الانضمام غير صحيح أو غير مفعّل.');
+      await dbSdk.setDoc(memberRef,{name,uid,joinCode:code,joinedAt:dbSdk.serverTimestamp()});
+      memberName=name;
+    }
+    function bindItemActions(){
+      document.querySelectorAll('[data-del]').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound='1';b.onclick=async()=>{const [c,id]=b.dataset.del.split(':');try{await dbSdk.deleteDoc(doc(...groupPath,c,id));}catch(e){setAppError(e.message);}};});
+      document.querySelectorAll('[data-done]').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound='1';b.onclick=async()=>{try{const r=doc(...groupPath,'tasks',b.dataset.done),s=await dbSdk.getDoc(r);await dbSdk.updateDoc(r,{done:!s.data().done});}catch(e){setAppError(e.message);}};});
+      document.querySelectorAll('[data-close]').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound='1';b.onclick=async()=>{try{const r=doc(...groupPath,'votes',b.dataset.close),s=await dbSdk.getDoc(r);await dbSdk.updateDoc(r,{closed:!s.data().closed});}catch(e){setAppError(e.message);}};});
+      document.querySelectorAll('[data-vote]').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound='1';b.onclick=async()=>{try{const [id,i]=b.dataset.vote.split(':'),r=doc(...groupPath,'votes',id),s=await dbSdk.getDoc(r),d=s.data(),counts=[...(d.counts||[])];counts[Number(i)]=(counts[Number(i)]||0)+1;await dbSdk.updateDoc(r,{counts});b.disabled=true;}catch(e){setAppError(e.message);}};});
+    }
+    function watch(path,render,sortField='createdAt'){
+      const q=dbSdk.query(col(path),dbSdk.orderBy(sortField,'desc'));
+      unsubscribers.push(dbSdk.onSnapshot(q,s=>render(s.docs.map(d=>({id:d.id,...d.data()}))),e=>setAppError('تعذر تحميل البيانات: '+e.message)));
+    }
+    async function addActivity(text){try{await dbSdk.addDoc(col('activity'),{text,createdAt:dbSdk.serverTimestamp(),uid:currentUser.uid});}catch(e){}}
+    function startWorkspace(){
+      $('loginView').classList.add('hidden');$('workspace').classList.remove('hidden');$('welcomeName').textContent=memberName;
+      $('connectionBadge').textContent='متصل';$('connectionBadge').style.color='#8ff3d9';setAppError('');clearSubs();
+      watch('tasks',items=>{$('taskCount').textContent=items.length;$('tasksList').classList.toggle('empty',!items.length);$('tasksList').innerHTML=items.length?items.map(x=>`<article class="item"><div><h3>${esc(x.title)}</h3><p>${x.assignee?'المسؤول: '+esc(x.assignee)+' · ':''}${x.due?'الموعد: '+esc(x.due):''} · ${x.done?'مكتملة':'قيد التنفيذ'}</p></div><div class="item-actions"><button class="ghost" data-done="${x.id}">${x.done?'إلغاء الإكمال':'تمت'}</button><button class="ghost" data-del="tasks:${x.id}">حذف</button></div></article>`).join(''):'لا توجد مهام بعد.';bindItemActions();});
+      watch('votes',items=>{const open=items.filter(x=>!x.closed);$('voteCount').textContent=open.length;$('votesList').innerHTML=items.length?items.map(x=>`<article class="item"><div style="width:100%"><h3>${esc(x.question)}</h3>${(x.options||[]).map((o,i)=>`<div class="vote-option"><span>${esc(o)} <small>(${(x.counts||[])[i]||0})</small></span><button class="primary" data-vote="${x.id}:${i}" ${x.closed?'disabled':''}>تصويت</button></div>`).join('')}<p>${x.closed?'التصويت مغلق':'تصويت مفتوح'}</p></div><button class="ghost" data-close="${x.id}">${x.closed?'مغلق':'إغلاق'}</button></article>`).join(''):'لا توجد تصويتات بعد.';bindItemActions();});
+      watch('members',items=>{$('memberCount').textContent=items.length;$('membersList').innerHTML=items.length?items.map(x=>`<article class="item"><div><h3>${esc(x.name)}</h3><p>${x.uid===currentUser.uid?'أنت':'عضو في الجروب'}</p></div></article>`).join(''):'لا يوجد أعضاء.';},'joinedAt');
+      watch('meetings',items=>{$('meetingsList').innerHTML=items.length?items.map(x=>`<article class="item"><div><h3>${esc(x.title)}</h3><p>${esc(dateText(x.date))} ${x.place?' · '+esc(x.place):''}</p></div><button class="ghost" data-del="meetings:${x.id}">حذف</button></article>`).join(''):'لا توجد اجتماعات بعد.';bindItemActions();});
+      watch('resources',items=>{$('resourceCount').textContent=items.length;$('resourcesList').innerHTML=items.length?items.map(x=>`<article class="item"><div><h3>${esc(x.title)}</h3><p><a href="${esc(x.url)}" target="_blank" rel="noopener">فتح المصدر</a></p></div><button class="ghost" data-del="resources:${x.id}">حذف</button></article>`).join(''):'لا توجد مصادر بعد.';bindItemActions();});
+      watch('messages',items=>{const box=$('chatMessages');box.innerHTML=items.map(x=>`<article class="message ${x.uid===currentUser.uid?'mine':''}"><strong>${esc(x.name)}</strong><p>${esc(x.text)}</p><time>${esc(dateText(x.createdAt))}</time>${x.uid===currentUser.uid?` <button class="ghost small" data-del="messages:${x.id}">حذف</button>`:''}</article>`).join('')||'<p class="empty">ابدأوا المحادثة.</p>';box.scrollTop=box.scrollHeight;bindItemActions();});
+      watch('activity',items=>$('recentActivity').innerHTML=items.slice(0,5).map(x=>`<p>${esc(x.text||'تحديث جديد')} <small>${esc(dateText(x.createdAt))}</small></p>`).join('')||'لسه مفيش تحديثات.');
+    }
+
+    $('joinForm').addEventListener('submit',async e=>{
+      e.preventDefault();setLoginError('');
+      const btn=$('joinButton');btn.disabled=true;btn.textContent='جارٍ الدخول...';
+      try{
+        await authReady;
+        const name=$('memberName').value.trim(),code=$('joinCode').value.trim();
+        if(!name||!code)throw new Error('اكتب الاسم وكود الانضمام.');
+        await enter(name,code);
+        localStorage.setItem('teamspaceName',memberName);
+        startWorkspace();
+      }catch(err){setLoginError('تعذر الدخول: '+(err.code?err.code+' — ':'')+(err.message||'حدث خطأ غير معروف.'));}
+      finally{btn.disabled=false;btn.textContent='دخول مساحة الجروب';}
+    });
+
+    $('signOutBtn').addEventListener('click',async()=>{
+      clearSubs();localStorage.removeItem('teamspaceName');await authSdk.signOut(auth);
+      $('workspace').classList.add('hidden');$('loginView').classList.remove('hidden');$('connectionBadge').textContent='جارٍ الاتصال...';
+      try{await authSdk.signInAnonymously(auth);}catch(e){setLoginError('تعذر إعادة الاتصال: '+e.message);}
+    });
+
+    $('taskForm').addEventListener('submit',async e=>{e.preventDefault();try{await dbSdk.addDoc(col('tasks'),{title:$('taskTitle').value.trim(),assignee:$('taskAssignee').value.trim(),due:$('taskDue').value,done:false,createdAt:dbSdk.serverTimestamp(),createdBy:currentUser.uid});e.target.reset();e.target.classList.add('hidden');await addActivity('تمت إضافة مهمة جديدة');}catch(x){setAppError(x.message);}});
+    $('voteForm').addEventListener('submit',async e=>{e.preventDefault();try{const options=$('voteOptions').value.split('\n').map(x=>x.trim()).filter(Boolean);if(options.length<2)throw new Error('اكتب اختيارين على الأقل، كل اختيار في سطر.');await dbSdk.addDoc(col('votes'),{question:$('voteQuestion').value.trim(),options,counts:options.map(()=>0),closed:false,createdAt:dbSdk.serverTimestamp(),createdBy:currentUser.uid});e.target.reset();e.target.classList.add('hidden');await addActivity('تم إنشاء تصويت جديد');}catch(x){setAppError(x.message);}});
+    $('meetingForm').addEventListener('submit',async e=>{e.preventDefault();try{await dbSdk.addDoc(col('meetings'),{title:$('meetingTitle').value.trim(),date:new Date($('meetingDate').value),place:$('meetingPlace').value.trim(),createdAt:dbSdk.serverTimestamp(),createdBy:currentUser.uid});e.target.reset();e.target.classList.add('hidden');}catch(x){setAppError(x.message);}});
+    $('resourceForm').addEventListener('submit',async e=>{e.preventDefault();try{await dbSdk.addDoc(col('resources'),{title:$('resourceTitle').value.trim(),url:$('resourceUrl').value.trim(),createdAt:dbSdk.serverTimestamp(),createdBy:currentUser.uid});e.target.reset();e.target.classList.add('hidden');}catch(x){setAppError(x.message);}});
+    $('chatForm').addEventListener('submit',async e=>{e.preventDefault();const message=$('chatInput').value.trim();if(!message)return;try{await dbSdk.addDoc(col('messages'),{text:message,name:memberName,uid:currentUser.uid,createdAt:dbSdk.serverTimestamp()});$('chatInput').value='';}catch(x){setAppError('تعذر إرسال الرسالة: '+x.message);}});
+
+    authSdk.onAuthStateChanged(auth,async user=>{
+      currentUser=user;
+      if(!user){$('connectionBadge').textContent='جارٍ الاتصال...';return;}
+      $('connectionBadge').textContent='خدمة الدخول متصلة';
+      authReadyResolve();
+      const saved=localStorage.getItem('teamspaceName');
+      if(saved){
+        try{const m=await dbSdk.getDoc(doc(...groupPath,'members',user.uid));if(m.exists()){memberName=m.data().name||saved;startWorkspace();}}
+        catch(err){setLoginError('تعذر استعادة الجلسة: '+err.message);}
+      }
+    });
+    authSdk.signInAnonymously(auth).catch(e=>{authReadyResolve();setLoginError('تعذر الاتصال بخدمة الدخول: '+(e.code?e.code+' — ':'')+e.message);$('connectionBadge').textContent='فشل الاتصال';});
+  } catch(err) {
+    $('connectionBadge').textContent='فشل تحميل النظام';
+    setLoginError('لم يتم تحميل مكتبات Firebase. تأكد من اتصال الإنترنت ثم حدّث الصفحة. التفاصيل: '+err.message);
+  }
+})();
+</script>
+</body>
+</html>
