@@ -1,187 +1,30 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TeamSpace | Communication & Medical Ethics</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10243a"><title>TeamSpace | Communication & Medical Ethics</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <a class="brand" href="#" aria-label="TeamSpace">
-        <span class="brand-mark">✚</span>
-        <span><b>TeamSpace</b><small>COMMUNICATION & MEDICAL ETHICS</small></span>
-      </a>
-      <div class="top-actions">
-        <span id="connectionState" class="connection"><i></i> جاري الاتصال</span>
-        <button id="logoutBtn" class="btn btn-quiet hidden">خروج</button>
-      </div>
-    </header>
-
-    <main>
-      <section id="loginView" class="login-layout">
-        <div class="welcome-panel">
-          <div class="eyebrow">YOUR TEAM • ONE WORKSPACE</div>
-          <h1>كل أفكار الفريق،<br><span>في مكان واحد.</span></h1>
-          <p>نظّموا المهام، اتخذوا القرارات بالتصويت، وتابعوا تقدم الفريق — بدون الحاجة إلى قائد في البداية.</p>
-          <div class="welcome-points">
-            <span>✓ إدارة جماعية</span><span>✓ مهام واضحة</span><span>✓ قرارات موثّقة</span>
-          </div>
-        </div>
-        <form id="joinForm" class="login-card">
-          <div class="card-icon">✚</div>
-          <h2>انضم إلى مساحة الفريق</h2>
-          <p class="muted">اكتب اسمك وكود الجروب للمتابعة.</p>
-          <label for="memberName">اسمك داخل الجروب</label>
-          <input id="memberName" maxlength="40" required placeholder="مثال: أحمد محمد">
-          <label for="groupCode">كود الجروب</label>
-          <input id="groupCode" required autocomplete="off" placeholder="أدخل كود الانضمام">
-          <button class="btn btn-primary full" type="submit">دخول إلى مساحة الفريق <span>←</span></button>
-          <p id="loginMessage" class="form-message" aria-live="polite"></p>
-          <small class="security-note">استخدم الكود الذي يشاركه معكم منشئ مساحة الفريق فقط.</small>
-        </form>
-      </section>
-
-      <section id="workspaceView" class="hidden">
-        <div class="welcome-strip">
-          <div><div class="eyebrow">TEAM WORKSPACE</div><h1>أهلًا، <span id="currentMember"></span> 👋</h1><p>مساحة مشتركة لتنظيم أعمال مادة Communication & Medical Ethics.</p></div>
-          <div class="date-chip"><span>مساحة الفريق</span><b>COMM • ETHICS</b></div>
-        </div>
-
-        <nav class="tabs" aria-label="أقسام المنصة">
-          <button class="tab active" data-view="overview">نظرة عامة</button>
-          <button class="tab" data-view="tasks">المهام <span id="taskTabCount">0</span></button>
-          <button class="tab" data-view="votes">التصويت</button>
-          <button class="tab" data-view="members">الأعضاء</button>
-          <button class="tab" data-view="meetings">الاجتماعات</button>
-          <button class="tab" data-view="resources">المصادر</button>
-          <button class="tab chat-tab" data-view="chat">💬 الشات <span class="chat-tab-dot">●</span></button>
-        </nav>
-
-        <section id="overviewPanel" class="panel-view">
-          <div class="stats-grid">
-            <article class="stat-card"><span class="stat-icon teal">▤</span><div><small>إجمالي المهام</small><b id="totalTasks">0</b></div></article>
-            <article class="stat-card"><span class="stat-icon blue">◷</span><div><small>قيد التنفيذ</small><b id="activeTasks">0</b></div></article>
-            <article class="stat-card"><span class="stat-icon green">✓</span><div><small>مكتملة</small><b id="doneTasks">0</b></div></article>
-            <article class="stat-card"><span class="stat-icon amber">☷</span><div><small>تصويتات مفتوحة</small><b id="openVotes">0</b></div></article>
-          </div>
-          <div class="content-grid">
-            <article class="surface">
-              <div class="section-heading"><div><h2>أحدث المهام</h2><p>تابعوا ما يعمل عليه الفريق حاليًا.</p></div><button class="text-btn" data-goto="tasks">كل المهام ←</button></div>
-              <div id="recentTasks" class="item-list empty-state">لا توجد مهام بعد. أضيفوا أول مهمة للفريق.</div>
-            </article>
-            <article class="surface">
-              <div class="section-heading"><div><h2>آخر الأنشطة</h2><p>آخر التحديثات داخل مساحة الفريق.</p></div></div>
-              <div id="activityList" class="item-list empty-state">ستظهر الأنشطة الجديدة هنا.</div>
-            </article>
-          </div>
-          <div class="notice"><b>مبدأ الفريق:</b> لا توجد صلاحيات قائد افتراضية. يستطيع الأعضاء اقتراح المهام والتصويت، ويمكن تعيين مسؤول لكل مهمة عند الحاجة.</div>
-        </section>
-
-        <section id="tasksPanel" class="panel-view hidden">
-          <div class="section-heading page-heading"><div><h2>إدارة المهام</h2><p>أضيفوا المهام، وزّعوها، وتابعوا حالتها حتى التسليم.</p></div><button id="addTaskBtn" class="btn btn-primary">＋ إضافة مهمة</button></div>
-          <div class="filter-row">
-            <input id="taskSearch" class="search-input" placeholder="ابحث عن مهمة...">
-            <select id="taskFilter" aria-label="تصفية المهام"><option value="all">كل الحالات</option><option value="Pending">لم تبدأ</option><option value="In Progress">قيد التنفيذ</option><option value="Under Review">تحت المراجعة</option><option value="Completed">مكتملة</option></select>
-          </div>
-          <div id="tasksList" class="task-grid empty-state">لا توجد مهام حتى الآن.</div>
-        </section>
-
-        <section id="votesPanel" class="panel-view hidden">
-          <div class="section-heading page-heading"><div><h2>التصويت واتخاذ القرار</h2><p>القرارات الجماعية تبدأ باقتراح واضح وتصويت منظم.</p></div><button id="addVoteBtn" class="btn btn-primary">＋ إنشاء تصويت</button></div>
-          <div id="votesList" class="card-grid empty-state">لا توجد تصويتات حاليًا.</div>
-        </section>
-
-        <section id="membersPanel" class="panel-view hidden">
-          <div class="section-heading page-heading"><div><h2>أعضاء الفريق</h2><p>الأعضاء المشاركون في مساحة العمل.</p></div></div>
-          <div id="membersList" class="card-grid empty-state">جارٍ تحميل الأعضاء...</div>
-        </section>
-
-        <section id="meetingsPanel" class="panel-view hidden">
-          <div class="section-heading page-heading"><div><h2>الاجتماعات والقرارات</h2><p>نظّموا الاجتماعات وسجّلوا ما تم الاتفاق عليه.</p></div><button id="addMeetingBtn" class="btn btn-primary">＋ إضافة اجتماع</button></div>
-          <div id="meetingsList" class="card-grid empty-state">لا توجد اجتماعات مسجلة.</div>
-        </section>
-
-        <section id="resourcesPanel" class="panel-view hidden">
-          <div class="section-heading page-heading"><div><h2>المصادر والروابط</h2><p>اجمعوا روابط المراجع والملفات المهمة في مكان واحد.</p></div><button id="addResourceBtn" class="btn btn-primary">＋ إضافة مصدر</button></div>
-          <div id="resourcesList" class="card-grid empty-state">لا توجد مصادر مضافة.</div>
-        </section>
-
-        <section id="chatPanel" class="panel-view hidden">
-          <div class="chat-heading">
-            <div class="chat-heading-main">
-              <div class="chat-brand-mark">✦</div>
-              <div><div class="eyebrow">TEAMSPACE • LIVE CONVERSATION</div><h2>مساحة الكلام <span>✧</span></h2><p>كل الفريق في مكان واحد — فكرة، سؤال، أو حتى تحديث صغير.</p></div>
-            </div>
-            <div class="chat-member-count"><span class="live-dot"></span><b id="chatMemberCount">0</b><small>أعضاء الفريق</small></div>
-          </div>
-          <div class="chat-shell">
-            <div class="chat-toolbar"><div><b>💬 دردشة الفريق</b><small>الرسائل بتظهر عند الجميع لحظيًا</small></div><span class="chat-encryption-note">مساحة خاصة بالجروب</span></div>
-            <div id="chatMessages" class="chat-messages" aria-live="polite"><div class="chat-welcome"><div class="chat-welcome-icon">✦</div><b>أهلًا بيكم في مساحة الكلام</b><p>ابدأوا المحادثة، وخلّوا الأفكار تتحرك.</p></div></div>
-            <div id="chatReplyPreview" class="chat-reply-preview hidden"></div>
-            <form id="chatForm" class="chat-composer">
-              <textarea id="chatInput" maxlength="1000" rows="1" placeholder="اكتب رسالتك للفريق..." aria-label="اكتب رسالة" required></textarea>
-              <div class="chat-composer-footer"><span>Enter للإرسال · Shift + Enter لسطر جديد</span><div><small id="chatCharCount">0 / 1000</small><button id="sendChatBtn" class="chat-send-btn" type="submit" aria-label="إرسال الرسالة">إرسال <span>➤</span></button></div></div>
-            </form>
-          </div>
-          <p class="chat-footnote">خلّوا الحوار محترمًا وواضحًا، وشارِكوا ما يساعد الفريق على التقدم. ✨</p>
-        </section>
-      </section>
-    </main>
-    <footer>TeamSpace <span>•</span> Built for collaborative learning</footer>
-  </div>
-
-  <dialog id="taskDialog" class="modal">
-    <form id="taskForm" method="dialog">
-      <div class="modal-head"><h2 id="taskModalTitle">إضافة مهمة جديدة</h2><button type="button" class="icon-btn" data-close="taskDialog">×</button></div>
-      <input type="hidden" id="taskId">
-      <label for="taskTitle">عنوان المهمة</label><input id="taskTitle" maxlength="100" required placeholder="مثال: إعداد عرض عن patient confidentiality">
-      <label for="taskDescription">التفاصيل</label><textarea id="taskDescription" rows="3" placeholder="اكتب وصفًا مختصرًا للمطلوب..."></textarea>
-      <div class="form-two"><div><label for="taskAssignee">المسؤول عن التنفيذ</label><select id="taskAssignee"><option value="">لم يُحدد بعد</option></select></div><div><label for="taskDue">موعد التسليم</label><input id="taskDue" type="date"></div></div>
-      <label for="taskStatus">الحالة</label><select id="taskStatus"><option value="Pending">لم تبدأ</option><option value="In Progress">قيد التنفيذ</option><option value="Under Review">تحت المراجعة</option><option value="Completed">مكتملة</option></select>
-      <div class="modal-actions"><button type="button" class="btn btn-quiet" data-close="taskDialog">إلغاء</button><button class="btn btn-primary" type="submit">حفظ المهمة</button></div>
-    </form>
-  </dialog>
-
-  <dialog id="voteDialog" class="modal">
-    <form id="voteForm" method="dialog">
-      <div class="modal-head"><h2>إنشاء تصويت</h2><button type="button" class="icon-btn" data-close="voteDialog">×</button></div>
-      <label for="voteTitle">موضوع التصويت</label><input id="voteTitle" maxlength="120" required placeholder="مثال: اختيار موضوع المشروع">
-      <label>الاختيارات</label><div id="voteOptions"><input class="vote-option" required placeholder="الاختيار الأول"><input class="vote-option" required placeholder="الاختيار الثاني"></div>
-      <button type="button" id="addOptionBtn" class="text-btn">＋ إضافة اختيار آخر</button>
-      <label for="voteType">نوع التصويت</label><select id="voteType"><option value="public">علني</option><option value="secret">سري (إظهار النتيجة دون أسماء المصوتين)</option></select>
-      <label for="voteDeadline">موعد انتهاء التصويت</label><input id="voteDeadline" type="date">
-      <div class="modal-actions"><button type="button" class="btn btn-quiet" data-close="voteDialog">إلغاء</button><button class="btn btn-primary" type="submit">نشر التصويت</button></div>
-    </form>
-  </dialog>
-
-  <dialog id="meetingDialog" class="modal">
-    <form id="meetingForm" method="dialog">
-      <div class="modal-head"><h2>إضافة اجتماع</h2><button type="button" class="icon-btn" data-close="meetingDialog">×</button></div>
-      <label for="meetingTitle">عنوان الاجتماع</label><input id="meetingTitle" required maxlength="100">
-      <label for="meetingDate">التاريخ والوقت</label><input id="meetingDate" type="datetime-local" required>
-      <label for="meetingNotes">جدول الأعمال / القرارات</label><textarea id="meetingNotes" rows="3"></textarea>
-      <div class="modal-actions"><button type="button" class="btn btn-quiet" data-close="meetingDialog">إلغاء</button><button class="btn btn-primary" type="submit">حفظ الاجتماع</button></div>
-    </form>
-  </dialog>
-
-  <dialog id="resourceDialog" class="modal">
-    <form id="resourceForm" method="dialog">
-      <div class="modal-head"><h2>إضافة مصدر</h2><button type="button" class="icon-btn" data-close="resourceDialog">×</button></div>
-      <label for="resourceTitle">اسم المصدر</label><input id="resourceTitle" required maxlength="100">
-      <label for="resourceUrl">الرابط</label><input id="resourceUrl" type="url" required placeholder="https://...">
-      <label for="resourceNote">ملاحظة (اختياري)</label><textarea id="resourceNote" rows="2"></textarea>
-      <div class="modal-actions"><button type="button" class="btn btn-quiet" data-close="resourceDialog">إلغاء</button><button class="btn btn-primary" type="submit">حفظ المصدر</button></div>
-    </form>
-  </dialog>
-
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-  <!-- Firebase SDK: configure your project in firebase-config.js -->
+  <header class="topbar"><div class="brand"><span class="brand-mark">TS</span><div><strong>TeamSpace</strong><small>Communication & Medical Ethics</small></div></div><span id="connectionBadge" class="badge">غير متصل</span></header>
+  <main class="container">
+    <section id="loginView" class="login-card">
+      <div class="eyebrow">مساحة عمل جماعية</div><h1>أهلًا بيكم في TeamSpace</h1><p class="muted">مكان واحد لتنظيم مهام الجروب والتصويت ومشاركة المصادر والتواصل.</p>
+      <form id="joinForm"><label>اسمك</label><input id="memberName" maxlength="40" placeholder="اكتب اسمك" required><label>كود الانضمام</label><input id="joinCode" maxlength="40" placeholder="CME2026TEAM" required><button class="primary" type="submit">دخول مساحة الجروب</button><p id="loginError" class="error" role="alert"></p></form>
+    </section>
+    <section id="workspace" class="hidden">
+      <div class="welcome-row"><div><div class="eyebrow">مساحة الجروب</div><h1>أهلًا، <span id="welcomeName"></span></h1><p class="muted">نظّموا شغلكم وخلّوا كل حاجة واضحة للجميع.</p></div><button id="signOutBtn" class="ghost">تسجيل الخروج</button></div>
+      <nav class="tabs" aria-label="أقسام الموقع"><button class="tab active" data-view="overview">الرئيسية</button><button class="tab" data-view="tasks">المهام</button><button class="tab" data-view="votes">التصويت</button><button class="tab" data-view="members">الأعضاء</button><button class="tab" data-view="meetings">الاجتماعات</button><button class="tab" data-view="resources">المصادر</button><button class="tab" data-view="chat">الشات</button></nav>
+      <section id="overviewView" class="panel"><h2>نظرة عامة</h2><div class="stats"><article><b id="taskCount">0</b><span>مهمة</span></article><article><b id="voteCount">0</b><span>تصويت مفتوح</span></article><article><b id="memberCount">0</b><span>عضو</span></article><article><b id="resourceCount">0</b><span>مصدر</span></article></div><div class="card"><h3>آخر التحديثات</h3><div id="recentActivity" class="empty">لسه مفيش تحديثات.</div></div></section>
+      <section id="tasksView" class="panel hidden"><div class="section-head"><h2>المهام</h2><button class="primary small" id="addTaskBtn">+ إضافة مهمة</button></div><form id="taskForm" class="inline-form hidden"><input id="taskTitle" placeholder="عنوان المهمة" required maxlength="100"><input id="taskAssignee" placeholder="المسؤول (اختياري)" maxlength="50"><input id="taskDue" type="date"><button class="primary small">حفظ</button><button type="button" class="ghost small" data-cancel="taskForm">إلغاء</button></form><div id="tasksList" class="list empty">لا توجد مهام بعد.</div></section>
+      <section id="votesView" class="panel hidden"><div class="section-head"><h2>التصويت</h2><button class="primary small" id="addVoteBtn">+ إنشاء تصويت</button></div><form id="voteForm" class="stack-form hidden"><input id="voteQuestion" placeholder="موضوع التصويت" required maxlength="180"><textarea id="voteOptions" placeholder="اكتب كل اختيار في سطر منفصل" rows="3" required></textarea><button class="primary small">نشر التصويت</button><button type="button" class="ghost small" data-cancel="voteForm">إلغاء</button></form><div id="votesList" class="list empty">لا توجد تصويتات بعد.</div></section>
+      <section id="membersView" class="panel hidden"><h2>أعضاء الجروب</h2><div id="membersList" class="list empty">جارٍ تحميل الأعضاء...</div></section>
+      <section id="meetingsView" class="panel hidden"><div class="section-head"><h2>الاجتماعات</h2><button class="primary small" id="addMeetingBtn">+ إضافة اجتماع</button></div><form id="meetingForm" class="inline-form hidden"><input id="meetingTitle" placeholder="عنوان الاجتماع" required maxlength="100"><input id="meetingDate" type="datetime-local" required><input id="meetingPlace" placeholder="المكان أو رابط الاجتماع" maxlength="160"><button class="primary small">حفظ</button><button type="button" class="ghost small" data-cancel="meetingForm">إلغاء</button></form><div id="meetingsList" class="list empty">لا توجد اجتماعات بعد.</div></section>
+      <section id="resourcesView" class="panel hidden"><div class="section-head"><h2>المصادر</h2><button class="primary small" id="addResourceBtn">+ إضافة مصدر</button></div><form id="resourceForm" class="inline-form hidden"><input id="resourceTitle" placeholder="اسم المصدر" required maxlength="100"><input id="resourceUrl" type="url" placeholder="رابط المصدر" required><button class="primary small">حفظ</button><button type="button" class="ghost small" data-cancel="resourceForm">إلغاء</button></form><div id="resourcesList" class="list empty">لا توجد مصادر بعد.</div></section>
+      <section id="chatView" class="panel hidden"><h2>شات الجروب</h2><div id="chatMessages" class="chat-messages"><p class="empty">ابدأوا المحادثة.</p></div><form id="chatForm" class="chat-form"><input id="chatInput" maxlength="1000" placeholder="اكتب رسالة للجروب..." required><button class="primary">إرسال</button></form></section>
+      <p id="appError" class="error" role="alert"></p>
+    </section>
+  </main>
+  <footer>TeamSpace · Communication & Medical Ethics</footer>
   <script type="module" src="app.js"></script>
-</body>
-</html>
+</body></html>
