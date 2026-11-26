@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isMember(groupId) {
+      return signedIn() && exists(/databases/$(database)/documents/groups/$(groupId)/members/$(request.auth.uid));
+    }
+
+    match /groups/{groupId}/joinCodes/{code} {
+      allow get: if signedIn();
+      allow list, create, update, delete: if false;
+    }
+
+    match /groups/{groupId}/members/{memberId} {
+      allow get: if signedIn() && (request.auth.uid == memberId || isMember(groupId));
+      allow list: if isMember(groupId);
+      allow create: if signedIn()
+        && request.auth.uid == memberId
+        && request.resource.data.keys().hasOnly(['name', 'uid', 'joinCode', 'joinedAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.joinCode is string
+        && exists(/databases/$(database)/documents/groups/$(groupId)/joinCodes/$(request.resource.data.joinCode))
+        && get(/databases/$(database)/documents/groups/$(groupId)/joinCodes/$(request.resource.data.joinCode)).data.active == true;
+      allow update, delete: if false;
+    }
+
+    match /groups/{groupId}/tasks/{itemId} {
+      allow read, create, update, delete: if isMember(groupId);
+    }
+    match /groups/{groupId}/votes/{itemId} {
+      allow read, create, update, delete: if isMember(groupId);
+    }
+    match /groups/{groupId}/meetings/{itemId} {
+      allow read, create, update, delete: if isMember(groupId);
+    }
+    match /groups/{groupId}/resources/{itemId} {
+      allow read, create, update, delete: if isMember(groupId);
+    }
+    match /groups/{groupId}/activity/{itemId} {
+      allow read, create: if isMember(groupId);
+      allow update, delete: if false;
+    }
+    match /groups/{groupId}/messages/{messageId} {
+      allow read: if isMember(groupId);
+      allow create: if isMember(groupId)
+        && request.resource.data.keys().hasOnly(['text', 'name', 'uid', 'createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.name is string
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 1000;
+      allow delete: if isMember(groupId) && resource.data.uid == request.auth.uid;
+      allow update: if false;
+    }
+  }
+}
